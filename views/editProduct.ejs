@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/home.css">
+</head>
+<body>
+
+    <%- include('nav') %>
+    <h1 class="head">Edit Product</h1>
+    <div class="container">
+       <% for(data of product){%>
+        <!-- //card -->
+        <div class="containerCard">
+            <div class="card">
+                <div class="image">
+                    <img src="/img/products/<%= data.pic %>">
+                </div>
+                <div class="detail">
+                    <div class="des">
+                        <p><%= data.name %></p>
+                    </div>
+                    <div class="price">
+                        <p><%= data.price %> $</p>
+                    </div>
+                </div>
+            </div>
+            <div class="btnContainer">
+                <form method="post" action="/deleteProduct">
+                    <input type="hidden" name="id" value="<%= data.idproduct %>">
+                    <button type="submit" class="btnDelete" >Delete</button>
+                </form>
+                <form method="post" action="/changeProduct">
+                    <input type="hidden" name="id" value="<%= data.idproduct %>">
+                    <button type="submit" class="btnEdit" >Edit</button>
+                </form>
+            </div>
+        </div>
+        <!-- //end card -->
+        <% } %>
+    </div>
+</body>
+</html>

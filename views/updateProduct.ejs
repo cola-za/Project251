@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/home.css">
+</head>
+<body>
+    <%- include('nav') %>
+    <h1 class="head">Update Product</h1>
+    <div class="container">
+        <form method="post" action="/updateP">
+            <input type="hidden" name="id" value="<%= product[0].idproduct %>">
+            <label for="">Name</label>
+            <input type="text" name="name" value="<%= product[0].name %>">
+            <label for="">Price</label>
+            <input type="text" name="price" value="<%= product[0].price%>"> 
+            <label for="">Total</label>
+            <input type="text" name="total" value=" <%= product[0].total %>"> 
+            <button type="submit">SUBMIT</button>
+        </form>
+    </div>
+</body>
+</html>

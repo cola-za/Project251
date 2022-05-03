@@ -1,0 +1,21 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto';
+} 
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.a {
+    background-color: aqua;
+    flex-grow: 1;
+}
+
+.b {
+    background-color: aqua;
+    flex-grow: 1;
+}

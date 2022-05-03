@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/home.css">
+</head>
+<body>
+    <div class="nav">
+        <h1 class="h">M</h1>
+        <div class="menu"> 
+            <a href="#">Home</a>
+            <a href="#">Manager</a> 
+        </div>
+        
+    </div>
+    <div class="container">
+        <form method="post" action="/additem">
+            <label for="">ID</label>
+            <input type="text" name="id">
+            <label for="">Name</label>
+            <input type="text" name="name">
+            <label for="">Picture</label>
+            <input type="file" name="pic" required>
+            <label for="">Price</label>
+            <input type="text" name="price"> 
+            <label for="">Total</label>
+            <input type="text" name="total"> 
+            <button type="submit">SUBMIT</button>
+        </form>
+    </div>
+</body>
+</html>
