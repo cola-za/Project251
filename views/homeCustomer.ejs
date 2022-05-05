@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <script src="https://kit.fontawesome.com/a0f35c0307.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./css/home.css">
+    <script src="/js/home.js" defer></script>
+</head>
+<body>
+
+    <div class="nav">
+        <h1 class="h">M</h1>
+        <div class="menu"> 
+            <a href="/homeCustomer">Home</a>
+            <a href="/logout">Logout</a>
+        </div>
+        <form method="get" action="/orderpage">
+            <button type="submit" class="btn" onclick="order()"> Order</button>
+        </form> 
+        
+    </div>
+
+    <div class="cart">
+        <h1 class="head">Homepage</h1>
+        <p class="countcart">0</p>
+        <i class="fa-solid fa-cart-shopping fa-4x"></i>
+    </div>
+    <div class="container">
+       <% for(data of product){%>
+    <div>
+        <!-- //card -->
+        <a href="#">
+            <input type="hidden" value="<%= data.idproduct %>" class="id">
+            <div class="card">
+                <div class="image">
+                    <img src="/img/products/<%= data.pic %>">
+                </div>
+                <div class="detail">
+                    <div class="des">
+                        <p><%= data.name %></p>
+                    </div>
+                    <div class="price">
+                        <p><%= data.price %> $</p>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <button type="button" class="addbtn">addCart</button>
+    </div>
+        <!-- //end card -->
+        <% } %>
+    </div>
+</body>
+</html>
