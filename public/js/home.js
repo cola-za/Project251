@@ -1,4 +1,3 @@
-// console.log(document.cookie)
 var array = [];
 var addbuttons = document.getElementsByClassName('addbtn')
 for (btn of addbuttons){
