@@ -7,6 +7,8 @@
         <!-- the form awesome library is used to add icons to our form -->
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
         <!-- include the stylesheet file -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 	</head>
 	<style>
 		* {
@@ -36,7 +38,7 @@ body {
     justify-content: center;
     padding-top: 20px;
 }
-.login form label {
+/* .login form label {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -44,7 +46,7 @@ body {
     height: 50px;
     background-color: #3274d6;
     color: #ffffff;
-}
+} */
 .login form input[type="password"], .login form input[type="text"] {
     width: 310px;
     height: 50px;
@@ -67,25 +69,12 @@ body {
   background-color: #2868c7;
     transition: background-color 0.2s;
 }
-.nav {
-    background-color: rgb(255, 0, 0);
-    gap: 2rem;
-    position: relative;
-}
 
 .h {
     color: yellow;
     position: absolute;
     top: 10px;
     left: 10px;
-}
-
-.menu {
-    display: flex;
-    justify-content: center;
-    height: 60px;
-    align-items: center;
-    gap: 2rem;
 }
 
 a {
@@ -101,11 +90,22 @@ a {
 				<input value="" type="text" name="id" placeholder="ID" id="password" required>
 				<input value="" type="text" name="fname" placeholder="First Name" id="password" required>
 				<input value="" type="text" name="lname" placeholder="Last Name" id="password" required>
-				<input value="" type="text" name="gender" placeholder="Gender" id="password" required>
+				<!-- <input value="" type="text" name="gender" placeholder="Gender" id="password" required> -->
+                <label for="gend" style="margin-bottom: 1rem;">Choose Gender : </label>
+                <select id="gend" name="gender">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
 				<input value="" type="text" name="tel" placeholder="Tel Number" id="password" required>
 				<input value="" type="text" name="username" placeholder="Username" id="password" required>
 				<input value="" type="password" name="password" placeholder="Password" id="password" required>
-				<input value="" type="text" name="role" placeholder="Role" id="password" required>
+				<!-- <input value="" type="text" name="role" placeholder="Role" id="password" required> -->
+                <label for="Role" style="margin-bottom: 1rem;">Choose Role : </label>
+                <select id="Role" name="role">
+                    <option value="normal">Normal</option>
+                    <option value="manager">Manager</option>
+                </select>
 				<input value="" type="text" name="email" placeholder="Email" id="password" required>
 				<input value="" type="text" name="salary" placeholder="Salary" id="password" required>
 				<input value="" type="text" name="address" placeholder="Address" id="password" required>

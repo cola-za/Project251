@@ -20,7 +20,7 @@ const upload = multer({
 
 //Select product show in homepage Emplpyee
 router.get('/home',(req,res)=>{
-    if(req.session.login)
+    if(req.session.login && req.session.role == 'manager')
     dbConnection.query("SELECT * FROM product",(err,result) =>{
         if(err) console.log(err)
         else{
@@ -34,7 +34,7 @@ router.get('/home',(req,res)=>{
 
 //Select product to show in Editpage Emplpyee
 router.get('/editproduct',(req,res)=>{
-    if(req.session.login)
+    if(req.session.login && req.session.role == 'manager')
     dbConnection.query("SELECT * FROM product",(err,result) =>{
         if(err) console.log(err)
         else{
@@ -47,7 +47,7 @@ router.get('/editproduct',(req,res)=>{
 
 //go to page Add Product
 router.get('/addproduct',(req,res)=>{
-    if(req.session.login)
+    if(req.session.login && req.session.role == 'manager')
         res.render('addProduct')
     else
         res.render('login')
@@ -56,7 +56,7 @@ router.get('/addproduct',(req,res)=>{
 
 //Delete Product
 router.post('/deleteProduct',(req,res)=>{
-    if(req.session.login){
+    if(req.session.login && req.session.role == 'manager'){
     var id = req.body.id
     var sql = `DELETE FROM product WHERE idproduct = ${id};`
     dbConnection.query(sql,(err,result) =>{
@@ -72,7 +72,7 @@ router.post('/deleteProduct',(req,res)=>{
 
 //Update Product data
 router.post('/updateP',(req,res)=>{
-    if(req.session.login){
+    if(req.session.login && req.session.role == 'manager'){
     var product = {
         id:parseInt(req.body.id),
         name:req.body.name,
@@ -95,7 +95,7 @@ else
 
 //SELECT product to show on edit page
 router.post('/changeProduct',(req,res)=>{
-    if(req.session.login){
+    if(req.session.login && req.session.role == 'manager'){
     var id = req.body.id
     dbConnection.query(`SELECT * FROM product WHERE idproduct = ${id};`,(err,result) =>{
         if(err) console.log(err)
@@ -113,15 +113,22 @@ else
 
 //Add Product Emplpyee
 router.post('/additem',upload.single("pic"),(req,res)=>{
-    if(req.session.login){
+    if(req.session.login && req.session.role == 'manager'){
+        var pic = ""
+        if(req.file === undefined){
+            pic = ""
+        }
+        else{
+            pic = req.file.filename
+        }
     var product = {
         id:parseInt(req.body.id),
         name:req.body.name,
-        pic: req.file.filename,
+        // pic: req.file.filename,
         price: parseInt(req.body.price),
         total: parseInt(req.body.total)
     }
-    var sql = `INSERT INTO product (idproduct, name, pic, price,total) VALUES (${product.id},'${product.name}','${product.pic}',${product.price},${product.total});`
+    var sql = `INSERT INTO product (idproduct, name, pic, price,total,userID) VALUES (${product.id},'${product.name}','${pic}',${product.price},${product.total},${req.session.userID});`
     dbConnection.query(sql,(err,result) =>{
     if(err) console.log(err)
     else{
@@ -134,16 +141,9 @@ else
 
 })
 
-//Logout
-router.get ('/logout',(req,res)=>{
-    req.session.destroy((err)=>{
-        res.redirect('/')
-    })
-})
-
 
 router.get('/addemployee',(req,res)=>{
-    if(req.session.login){
+    if(req.session.login && req.session.role == 'manager'){
         res.render('addEmployee')
     }
     else
@@ -152,9 +152,16 @@ router.get('/addemployee',(req,res)=>{
 
 //add  Employee
 router.post('/insertEmployee',upload.single("pic"),(req,res)=>{
-    if(req.session.login){
-        console.log(req.body)
-        var sql = `INSERT INTO user VALUES (${parseInt(req.body.id)},'${req.body.fname}','${req.body.lname}','${req.body.gender}','${req.body.tel}','${req.file.filename}','${req.body.password}','${req.body.role}','${req.body.email}',${parseInt(req.body.salary)},'${req.body.username}','${req.body.address}','${req.body.about}');`
+    if(req.session.login && req.session.role == 'manager'){
+        // console.log(req.body)
+        var pic = ""
+        if(req.file === undefined){
+            pic = ""
+        }
+        else{
+            pic = req.file.filename
+        }
+        var sql = `INSERT INTO user VALUES (${parseInt(req.body.id)},'${req.body.fname}','${req.body.lname}','${req.body.gender}','${req.body.tel}','${pic}','${req.body.password}','${req.body.role}','${req.body.email}',${parseInt(req.body.salary)},'${req.body.username}','${req.body.address}','${req.body.about}' , ${req.session.userID});`
         console.log(sql)
         dbConnection.query(sql,(err,result) =>{
         if(err) console.log(err)
@@ -175,7 +182,7 @@ router.get('/profile',(req,res)=>{
         dbConnection.query(`SELECT * FROM user WHERE username = '${username}';`,(err,result) =>{
             if(err) console.log(err)
             else{
-                console.log(result)
+                // console.log(result)
                 res.render('profile',{profile:result})
             }
         })
@@ -191,7 +198,7 @@ router.get('/editProfile',(req,res)=>{
             dbConnection.query(`SELECT * FROM user WHERE username = '${username}';`,(err,result) =>{
                 if(err) console.log(err)
                 else{
-                    console.log(result)
+                    // console.log(result)
                     res.render('editEmployee',{profile:result})
                 }
             })
@@ -202,7 +209,7 @@ router.get('/editProfile',(req,res)=>{
 //update data from edit page
     router.post('/updateEmployee',(req,res)=>{
         if(req.session.login){
-            console.log(req.body)
+            // console.log(req.body)
             var sql = `UPDATE user SET fname = '${req.body.fname}', lname = '${req.body.lname}' , tel = '${req.body.tel}' , username = '${req.body.username}' , password = '${req.body.password}' , email = '${req.body.email}' , address = '${req.body.address}' , about = '${req.body.about}' WHERE userID = ${parseInt(req.body.id)};`
             // console.log(sql)
             dbConnection.query(sql,(err,result) =>{
@@ -217,5 +224,108 @@ router.get('/editProfile',(req,res)=>{
                 res.redirect('/home')
         
         })
+
+        router.get('/orderemployee',(req,res)=>{
+            if(req.session.login){
+                dbConnection.query(`SELECT * FROM orderProduct;`,(err,result) =>{
+                    if(err) console.log(err)
+                    else{
+                        // console.log(result)
+                        res.render('orderEmployee',{order:result})
+                    }
+                })
+            }
+            else
+                res.redirect('/home')
+         })
+
+         router.post('/toSuccess',(req,res)=>{
+            if(req.session.login){
+                // console.log(req.body)
+                var sql = `UPDATE orderProduct SET status = 'success', userID = ${req.session.userID} WHERE CustomerID = '${req.body.CustomerID}' AND idproduct = ${req.body.ProductID};`
+                // console.log(sql)
+                dbConnection.query(sql,(err,result) =>{
+                    if(err) console.log(err)
+                    else{
+                        res.redirect('/orderemployee')
+                    }
+                })
+            }
+            else
+                res.redirect('/home')
+         })
+
+         router.post('/toCancel',(req,res)=>{
+            if(req.session.login){
+                // console.log(req.body)
+                var sql = `UPDATE orderProduct SET status = 'cancel' , userID = ${req.session.userID} WHERE CustomerID = '${req.body.CustomerID}' AND idproduct = ${req.body.ProductID};`
+                // console.log(sql)
+                dbConnection.query(sql,(err,result) =>{
+                    if(err) console.log(err)
+                    else{
+                        res.redirect('/orderemployee')
+                    }
+                })
+            }
+            else
+                res.redirect('/home')
+         })
+
+         router.get('/homeNormal',(req,res)=>{
+            if(req.session.login && req.session.role != 'manager'){
+                dbConnection.query("SELECT * FROM product",(err,result) =>{
+                    if(err) console.log(err)
+                    else{
+                        res.render('homeNomal',{product:result})
+                    }
+                })
+            }
+            else
+                res.redirect('/login')
+         })
+
+         router.get('/orderemployeeNormal',(req,res)=>{
+            if(req.session.login){
+                dbConnection.query(`SELECT * FROM orderProduct;`,(err,result) =>{
+                    if(err) console.log(err)
+                    else{
+                        res.render('orderEmployeeNormal',{order:result})
+                    }
+                })
+            }
+            else
+                res.redirect('/home')
+         })
+
+         router.get('/profileNormal',(req,res)=>{
+            if(req.session.login){
+                 var username = req.session.username
+         
+                 dbConnection.query(`SELECT * FROM user WHERE username = '${username}';`,(err,result) =>{
+                     if(err) console.log(err)
+                     else{
+                         // console.log(result)
+                         res.render('profileNormal',{profile:result})
+                     }
+                 })
+            }
+            else
+                res.redirect('/home')
+         })
+
+         router.get('/editProfileNormal',(req,res)=>{
+            if(req.session.login){
+                 var username = req.session.username
+                 dbConnection.query(`SELECT * FROM user WHERE username = '${username}';`,(err,result) =>{
+                     if(err) console.log(err)
+                     else{
+                         // console.log(result)
+                         res.render('editEmployeeNormal',{profile:result})
+                     }
+                 })
+            }
+            else
+                res.redirect('/home')
+         })
 
 module.exports = router
