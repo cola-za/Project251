@@ -4,6 +4,7 @@ const dbConnection = require('../database');
 const multer = require('multer');
 
 
+
 const storage = multer.diskStorage({
     destination:function(req,file,cb){
         cb(null,'./public/img/products')
@@ -100,7 +101,7 @@ router.post('/changeProduct',(req,res)=>{
     dbConnection.query(`SELECT * FROM product WHERE idproduct = ${id};`,(err,result) =>{
         if(err) console.log(err)
         else{
-            console.log(result)
+            // console.log(result)
             res.render('updateProduct',{product:result})
         }
     })

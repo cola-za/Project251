@@ -109,6 +109,14 @@ a {
     color: white;
 }
 
+p {
+    font-size: x-large ;
+}
+
+div .show {
+    display: flex;  
+}
+
 	</style>
 	<body>
         <%- include('nav') %>
@@ -116,6 +124,10 @@ a {
 			<h1>Profile</h1>
 			<div class="value">
                 <img src="/img/products/<%= profile[0].pic%>">
+                <div class="show">
+                    <p>UserID :</p>
+                    <p><%= profile[0].userID%></p>
+                </div>
 				<p>UserID : <%= profile[0].userID%></p>
 				<p>First Name : <%= profile[0].fname%></p>
 				<p>Last Name : <%= profile[0].lname%></p>

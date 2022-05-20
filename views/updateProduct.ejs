@@ -17,6 +17,18 @@
         button {
             margin-top: 1rem;
         }
+
+        form input[type="password"],form input[type="text"] ,form input[type="number"] ,form select{
+    width: 310px;
+    height: 50px;
+    border: 0px solid #dee0e4;
+    margin-bottom: 20px;
+    padding: 0 15px;
+}
+
+    form {
+        background-color: #435165;
+    }
     </style>
 </head>
 <body>
@@ -26,12 +38,12 @@
         <form method="post" action="/updateP" class="d-flex flex-column justify-content-center align-items-center">
             <input type="hidden" name="id" value="<%= product[0].idproduct %>">
             <label for="" class="badge bg-secondary">Name</label>
-            <input type="text" name="name" value="<%= product[0].name %>">
+            <input type="text" name="name" value="<%= product[0].name %>" required placeholder="Name">
             <label for="" class="badge bg-secondary">Price</label>
-            <input type="text" name="price" value="<%= product[0].price%>"> 
+            <input type="number" name="price" value="<%= product[0].price%>" required placeholder="Price"> 
             <label for="" class="badge bg-secondary">Total</label>
-            <input type="text" name="total" value=" <%= product[0].total %>"> 
-            <button type="submit" class="btn btn-primary">SUBMIT</button>
+            <input type="number" name="total" value=" <%= product[0].total %>" required placeholder="Total"> 
+            <button type="submit" class="btn btn-primary" style="margin-bottom: 2rem;">SUBMIT</button>
         </form>
     </div>
 </body>

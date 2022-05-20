@@ -17,6 +17,17 @@
         button {
             margin-top: 1rem;
         }
+
+        form input[type="password"],form input[type="text"] ,form input[type="number"] ,form select{
+    width: 310px;
+    height: 50px;
+    border: 0px solid #dee0e4;
+    margin-bottom: 20px;
+    padding: 0 15px;
+}
+        form {
+            background-color: #435165;
+        }       
     </style>
 </head>
 <body>
@@ -25,16 +36,16 @@
     <div class="container">
         <form method="post" action="/additem" enctype="multipart/form-data" class="d-flex flex-column justify-content-center align-items-center">
             <label for="" class="badge bg-secondary">ID</label>
-            <input type="text" name="id">
+            <input type="number" name="id" required placeholder="ID">
             <label for="" class="badge bg-secondary">Name</label>
-            <input type="text" name="name">
+            <input type="text" name="name" required placeholder="Name">
             <label for="" class="badge bg-secondary">Picture</label>
             <input type="file" name="pic">
             <label for="" class="badge bg-secondary">Price</label>
-            <input type="text" name="price"> 
+            <input type="number" name="price" required placeholder="Price"> 
             <label for="" class="badge bg-secondary">Total</label>
-            <input type="text" name="total"> 
-            <button class="btn btn-primary" type="submit">SUBMIT</button>
+            <input type="number" name="total" required placeholder="Total"> 
+            <button class="btn btn-primary" type="submit" style="margin-bottom: 2rem;">SUBMIT</button>
         </form>
     </div>
 </body>
